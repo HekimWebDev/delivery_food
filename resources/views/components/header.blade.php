@@ -11,7 +11,7 @@
             <a class="nav-link">+7 (343) 298-00-44</a>
             @if(Auth()->user())
                 <a class="nav-link" href="{{route('admin_categories')}}">Категории</a>
-                <a class="nav-link" href="{{route('admin_products')}}">Продукты</a>
+{{--                <a class="nav-link" href="{{route('admin_products')}}">Продукты</a>--}}
                 <a class="nav-link" href="{{route('profile-page')}}">Профиль</a>
                 <a class="nav-link" href="{{route('logout')}}">Выйти</a>
             @else

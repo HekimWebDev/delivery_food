@@ -10,6 +10,14 @@ use DB;
 
 class CategoryController extends Controller
 {
+    /**
+     * Handle the incoming request.
+     */
+    public function __invoke()
+    {
+//        return view('pages.' . $page);
+    }
+
     public function index() {
         if(Auth()->user()) {
             $categories = Category::paginate(10);
@@ -24,8 +32,19 @@ class CategoryController extends Controller
         }
     }
 
+    public function add() {
+        if(Auth()->user()) {
+            return view('admin.add_category')->with(
+                [
+                    'page_title'=>'Добавить Категории'
+                ]
+            );
+        } else {
+            abort(403);
+        }
+    }
 
-    public function add(Request $request) {
+    public function store(Request $request) {
         if(Auth()->user()) {
             if($request->isMethod('post')){
                 try {
@@ -35,7 +54,7 @@ class CategoryController extends Controller
                         'name'=>'required',
                         'description'=>'required',
                     ]);
-                    
+
                     if($validator->fails()) {
                         return redirect()->back()->withErrors($validator)->withInput();
                     }
@@ -54,9 +73,9 @@ class CategoryController extends Controller
                 }
             }
 
-            return view('admin.add_category')->with([
+            /*return view('admin.add_category')->with([
                 'page_title'=>'Новая категория',
-            ]);
+            ]);*/
         } else {
             abort(403);
         }

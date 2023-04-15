@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +21,17 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['auth'])->group(function () {
 
 
-    Route::get('admin/categories', 'CategoryController@index')->name('admin_categories');
-    Route::match(['get','post'],'admin/categories/new',['uses'=>'CategoryController@add'])->name('admin_categories_new');
+    Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin_categories');
+    Route::get('/admin/categories/new', [CategoryController::class, 'add'])->name('admin_categories_new');
+    Route::post('/admin/categories/new/store', [CategoryController::class, 'store'])->name('admin_categories_new_store');
+//    Route::match(['get','post'],'/admin/categories/new',['uses'=>CategoryController::class, 'add'])->name('admin_categories_new');
 
 
-    Route::get('admin/products', 'ProductController@index')->name('admin_products');
+//    Route::get('admin/products', 'ProductController@index')->name('admin_products');
     // Route::match(['get','post'],'admin/products/new',['uses'=>'ProductController@add'])->name('admin_products_new');
+
+
+//   Route::get('/{pages}', [CategoryController::class])->name('page')->where('pages', 'categories|add_category');
 
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/profile', [PageController::class, 'profile'])->name('profile-page');
