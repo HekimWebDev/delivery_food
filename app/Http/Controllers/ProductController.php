@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ill;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Filesystem\Filesystem;
@@ -52,7 +53,48 @@ class ProductController extends Controller
     }
 
 
-    public function store(Request $request) {
+    public function store(Request $request){
+        if(Auth()->user()) {
+            $request->validate([
+                'name'=>'required',
+                'price'=>'required',
+                'amount'=>'required',
+                'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+                'description'=>'required',
+            ]);
+
+            $product = new Product();
+            $product->name = $request->name;
+            $product->category_id = $request->category_id;
+            $product->price = $request->price;
+            $product->amount = $request->amount;
+            $product->description = $request->description;
+            $product->image = $request->image;
+            $product->save();
+
+            if ($request->hasfile('image')) {
+                $file_full_name = $request->file('image')->getClientOriginalName();
+                $filename = pathinfo($file_full_name, PATHINFO_FILENAME);
+                $ext = $ext = pathinfo($file_full_name, PATHINFO_EXTENSION);
+
+                $product->image = 'images/products/' . $product->name . '.' . $ext;
+                $product->save();
+
+                $file = $request->file('image');
+                $file->storeAs('public/images/products/', $product->name . '.' . $ext);
+            }
+
+            return redirect()->route('admin_products')->with('status','Товар добавлена');
+        }
+
+        else{
+            return redirect()->back()->with([
+                'response' => "Ошибка добавления"
+            ]);
+        }
+    }
+
+   /* public function store(Request $request) {
         if(Auth()->user()) {
             if($request->isMethod('post')){
                 try {
@@ -94,6 +136,6 @@ class ProductController extends Controller
         } else {
             abort(403);
         }
-    }
+    }*/
 
 }

@@ -54,7 +54,7 @@
 
     <div class="col-md-12">
         <label for="image" class="form-label">Изображение Продуктa</label>
-        <input placeholder="Изображение Продуктa" autofocus type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" required>
+        <input  autofocus type="file" name="image" id="image" class="form-control @error('image') is-invalid @enderror" required>
         @error('image')
         <div class="invalid-feedback">
             {{$message}}
