@@ -19,6 +19,13 @@ class Product extends Model
         'name', 'category_id', 'price', 'amount', 'description'
     ];
 
+    protected $guarded = [];
+
+    public function getUnitPriceAttribute($value)
+    {
+        return number_format($value, 2);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

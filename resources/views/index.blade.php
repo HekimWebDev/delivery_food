@@ -5,6 +5,19 @@
 @section('page-content')
     <section>
         <div class="container">
+            <h2>Все Продукты</h2>
+            <div class="cards">
+                @foreach($products as $prod)
+                    <a href="{{route('prod_detail', ['id' => $prod->id])}}">
+                        <div class="card-item">
+                            <img style="width: 50px; height: 50px;" src="{{url('storage/'.$prod->image)}}" alt="{{$prod->name}}">
+                            <h4>{{$prod->name}}</h4>
+                        </div>
+                    </a>
+                @endforeach
+            </div>
+        </div>
+        <div class="container">
             <h2>Рестораны</h2>
             <div class="cards">
                 <a href="{{route('restaurant-page')}}">

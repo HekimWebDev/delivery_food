@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,8 +11,14 @@ use Illuminate\Support\Facades\View;
 class PageController extends Controller
 {
     public function index() {
-    return view('index');
-}
+        $products = Product::paginate(10);
+        return view('index', compact('products'));
+    }
+
+    public function prod_detail($id) {
+        $product = Product::where('id',$id)->first();
+        return view('product_detail', compact('product'));
+    }
 
     public function signup() {
         return view('sign-up');

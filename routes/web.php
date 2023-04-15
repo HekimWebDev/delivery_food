@@ -39,6 +39,7 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/', [PageController::class, 'index'])->name('main-page');
+Route::get('/prod-detail/{id}', [PageController::class, 'prod_detail'])->name('prod_detail');
 
 Route::get('/login', [PageController::class, 'login'])->name('login-page');
 Route::post('/login',  [UserController::class, 'login'])->name('login');
