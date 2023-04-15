@@ -24,11 +24,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin/categories', [CategoryController::class, 'index'])->name('admin_categories');
     Route::get('/admin/categories/new', [CategoryController::class, 'add'])->name('admin_categories_new');
     Route::post('/admin/categories/new/store', [CategoryController::class, 'store'])->name('admin_categories_new_store');
-//    Route::match(['get','post'],'/admin/categories/new',['uses'=>CategoryController::class, 'add'])->name('admin_categories_new');
 
-
-//    Route::get('admin/products', 'ProductController@index')->name('admin_products');
-    // Route::match(['get','post'],'admin/products/new',['uses'=>'ProductController@add'])->name('admin_products_new');
+    Route::get('/admin/products', [ProductController::class, 'index'])->name('admin_products');
+    Route::get('/admin/products/new', [ProductController::class, 'add'])->name('admin_products_new');
+    Route::post('/admin/products/new/store', [ProductController::class, 'store'])->name('admin_products_new_store');
 
 
 //   Route::get('/{pages}', [CategoryController::class])->name('page')->where('pages', 'categories|add_category');

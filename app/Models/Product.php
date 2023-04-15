@@ -5,6 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @method static paginate(int $int)
+ */
 class Product extends Model
 {
     use HasFactory;
@@ -13,7 +16,7 @@ class Product extends Model
 
 
     protected $fillable = [
-        'name', 'category_id', 'price', 'amount', 'description', 'image'
+        'name', 'category_id', 'price', 'amount', 'description'
     ];
 
     public function category()
