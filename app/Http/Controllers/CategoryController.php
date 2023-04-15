@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
-use Validator;
+use Illuminate\Support\Facades\Validator;
+use Exception;
 use DB;
 
 class CategoryController extends Controller
@@ -38,7 +40,7 @@ class CategoryController extends Controller
                         return redirect()->back()->withErrors($validator)->withInput();
                     }
 
-                    $category = new \App\Category([
+                    $category = new Category([
                         'name' => $result['name'],
                         'description' => $result['description'],
                     ]);
