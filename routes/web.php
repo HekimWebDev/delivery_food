@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,19 +36,32 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
     Route::get('/profile', [PageController::class, 'profile'])->name('profile-page');
     Route::get('/edit', [PageController::class, 'edit'])->name('edit-page');
-    
+
 });
 
 Route::get('/', [PageController::class, 'index'])->name('main-page');
-Route::get('/prod-detail/{id}', [PageController::class, 'prod_detail'])->name('prod_detail');
+
+//Route::get('/prod-detail/{id}', [PageController::class, 'prod_detail'])->name('prod_detail');
+
+Route::group([
+    'as' => 'product.',
+    'prefix' => 'product',
+    'controller' => ProductsController::class
+], function () {
+    Route::get('/{id}', 'detail')->name('detail');
+    Route::get('/add-to-cart/{id}', 'addToCart')->name('add.to.cart');
+    Route::put('/update-cart', 'update')->name('update.cart');
+    Route::delete('/remove-from-cart', 'remove')->name('remove.from.cart');
+});
+Route::get('/cart', [CartController::class, 'index'])->name('cart-page');
+
 
 Route::get('/login', [PageController::class, 'login'])->name('login-page');
-Route::post('/login',  [UserController::class, 'login'])->name('login');
+Route::post('/login', [UserController::class, 'login'])->name('login');
 
 Route::get('/sign-up', [PageController::class, 'signup'])->name('signup-page');
 Route::post('/sign-up', [UserController::class, 'signup'])->name('sign-up');
 
-Route::get('/cart', [PageController::class, 'cart'])->name('cart-page');
 Route::get('/rules', [PageController::class, 'rules'])->name('rules-page');
 Route::get('/restaurant', [PageController::class, 'restaurant'])->name('restaurant-page');
 Route::get('/restaurant2', [PageController::class, 'restaurant2'])->name('restaurant2-page');

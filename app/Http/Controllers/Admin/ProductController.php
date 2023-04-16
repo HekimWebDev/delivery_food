@@ -1,17 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Ill;
 use App\Models\Category;
-use Illuminate\Http\Request;
-use Illuminate\Filesystem\Filesystem;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Validator;
 use App\Models\Product;
-use Exception;
-use Config;
-use DB;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
