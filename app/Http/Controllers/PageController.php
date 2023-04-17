@@ -62,11 +62,6 @@ class PageController extends Controller
         return view('edit-profile');
     }
 
-    public function pay()
-    {
-        return view('pay');
-    }
-
     public function password()
     {
         return view('forgot-password');

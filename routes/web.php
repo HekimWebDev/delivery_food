@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PayController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,7 @@ Route::group([
     Route::delete('/remove-from-cart', 'remove')->name('remove.from.cart');
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart-page');
+Route::get('/pay', [PayController::class, 'index'])->name('pay-page');
 
 
 Route::get('/login', [PageController::class, 'login'])->name('login-page');
@@ -67,7 +69,6 @@ Route::get('/restaurant', [PageController::class, 'restaurant'])->name('restaura
 Route::get('/restaurant2', [PageController::class, 'restaurant2'])->name('restaurant2-page');
 Route::get('/restaurant3', [PageController::class, 'restaurant3'])->name('restaurant3-page');
 Route::get('/address', [PageController::class, 'address'])->name('address-page');
-Route::get('/pay', [PageController::class, 'pay'])->name('pay-page');
 
 
 Route::get('/forgot-password', [PageController::class, 'password'])->name('password-page');

@@ -6,54 +6,137 @@
     <section>
         <div class="container">
             <section>
-                <div class="container-fluid container-content">
-                    <h2>Оплата заказа</h2>
-                    <form action="" method="post" style="width: 520px" class="row g-3 needs-validation authorization">
-                        <div class="col-md-12">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                Наличными курьеру
-                            </label>
-                        </div> <div class="col-md-12">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2">
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                По карте курьеру
-                            </label>
-                        </div>
-                        <div class="col-md-12">
-                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
-                            <label class="form-check-label" for="flexRadioDefault3">
-                                По карте online
-                            </label>
-                        </div>
-                        <div class="col-md-12">
-                            <label for="card_number" class="form-label">Номер карты</label>
-                            <input autofocus type="text" name="card_number" id="card_number" class="form-control @error('email') is-invalid @enderror" required>
-                            <div class="invalid-feedback">
-                                ошибка
-                            </div>
-                        </div>
-                        <div class="pay-form">
-                            <div class="col-md-3">
-                                <label for="date" class="form-label">MM/ГГ</label>
-                                <input type="text" name="date" class="form-control @error('password') is-invalid @enderror" id="date" required>
-                                <div class="invalid-feedback">
-                                    ошибка
+                <div class="row g-5 my-5">
+                    <div class="col-md-5 col-lg-4 order-md-last">
+                        <h4 class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="text-primary">Ваша корзина</span>
+                            <span class="badge bg-primary rounded-pill">{{ count(session('cart')) }}</span>
+                        </h4>
+                        <ul class="list-group mb-3">
+                            @php $total = 0 @endphp
+
+                            @foreach(session('cart') as $id => $details)
+                                @php $total += $details['price'] * $details['quantity'] @endphp
+
+                                <li class="list-group-item d-flex justify-content-between lh-sm">
+                                    <div>
+                                        <h6 class="my-0">{{ $details['name'] }}</h6>
+                                    </div>
+                                    <span class="text-muted">{{ $details['price'] }} ₽</span>
+                                </li>
+                            @endforeach
+                            <li class="list-group-item d-flex justify-content-between">
+                                <span>Общая сумма </span>
+                                <strong>{{ $total }} ₽</strong>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-md-7 col-lg-8">
+                        <h4 class="mb-3">Адрес для выставления счета</h4>
+                        <form class="needs-validation" novalidate="">
+                            <div class="row g-3">
+                                <div class="col-sm-6">
+                                    <x-forms.input type="text"
+                                                   error="first_name"
+                                                   name="Имя"
+                                                   property="first_name">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <x-forms.input type="text"
+                                                   error="last_name"
+                                                   name="Фамилия"
+                                                   property="last_name">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-12">
+                                    <x-forms.input type="email"
+                                                   error="email"
+                                                   name="Электронная почта"
+                                                   property="email">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-12">
+                                    <x-forms.input type="text"
+                                                   error="address"
+                                                   name="Адрес"
+                                                   property="address">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-md-5">
+                                    <x-forms.input type="text"
+                                                   error="label"
+                                                   name="Кв/Офис"
+                                                   property="label">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <x-forms.input type="text"
+                                                   error="entrance"
+                                                   name="Подъезд"
+                                                   property="entrance">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <x-forms.input type="text"
+                                                   error="floor"
+                                                   name="Этаж"
+                                                   property="floor">
+                                    </x-forms.input>
                                 </div>
                             </div>
-                            <div class="col-md-3">
-                                <label for="cvv" class="form-label">CVV/CVC</label>
-                                <input type="text" name="cvv" class="form-control @error('password') is-invalid @enderror" id="cvv" required>
-                                <div class="invalid-feedback">
-                                    ошибка
+
+                            <hr class="my-4">
+
+                            <h4 class="mb-3">Оплата</h4>
+
+                            <div class="my-3">
+                                <div class="form-check">
+                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input"
+                                           checked="" required="">
+                                    <label class="form-check-label" for="credit">Наличными курьеру</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input"
+                                           required="">
+                                    <label class="form-check-label" for="debit">По карте курьеру</label>
+                                </div>
+                                <div class="form-check">
+                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
+                                           required="">
+                                    <label class="form-check-label" for="paypal">По карте online</label>
                                 </div>
                             </div>
-                        </div>
-                        <div class="pay-order">
-                            <h4>682 ₽</h4>
-                            <button type="button" class="btn btn-outline-info">Оплатить</button>
-                        </div>
-                    </form>
+
+                            <div class="row gy-3">
+                                <div class="col-12">
+                                    <label for="cc-name" class="form-label">Номер карты</label>
+                                    <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="cc-expiration" class="form-label">MM/ГГ</label>
+                                    <input type="text" class="form-control" id="cc-expiration" placeholder=""
+                                           required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="cc-cvv" class="form-label">CVV/CVC</label>
+                                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <button class="w-100 btn btn-primary btn-lg" type="submit">Оплатить</button>
+                        </form>
+                    </div>
                 </div>
             </section>
         </div>

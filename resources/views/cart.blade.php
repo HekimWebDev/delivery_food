@@ -78,7 +78,7 @@
                                 <i class="fa fa-angle-left"></i>
                                 Продолжить покупки
                             </a>
-                            <button class="btn btn-success">Оплачивать</button>
+                            <a href="{{ route('pay-page') }}" class="btn btn-success">Оплачивать</a>
                         </td>
                     </tr>
                     </tfoot>
