@@ -1,8 +1,9 @@
 <header>
     <div class="container">
         <div class="header">
-            <a class="navbar-brand" href="{{route('main-page')}}"><img class="header-img" src="/images/logo.png"
-                                                                       alt="logo"></a>
+            <a class="navbar-brand" href="{{route('main-page')}}">
+                <img class="header-img" src="{{ asset('assets/front/images/logo.png') }}" alt="logo">
+            </a>
             <a class="nav-link" href="#">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt"
                      viewBox="0 0 16 16">
@@ -30,8 +31,9 @@
                 </svg>
 
                 Корзина
-                <span class="m position-absolute top-0 start-1 end-100 translate-middle badge rounded-pill bg-danger">
-                    {{ count(session('cart')) }}
+                <span class="position-absolute top-0 start-1 end-100 translate-middle badge rounded-pill bg-danger">
+                    {{ count( session('cart') ?? [] ) }}
+
                     <span class="visually-hidden">unread messages</span>
                 </span>
             </a>
