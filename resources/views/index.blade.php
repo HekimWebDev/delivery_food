@@ -25,19 +25,19 @@
             <div class="cards">
                 <a href="{{route('restaurant-page')}}">
                     <div class="card-item">
-                        <img src="/images/viy.jpg" alt="Вкусно и точка">
+                        <img src="{{ asset('/assets/front/images/viy.jpg') }}" alt="Вкусно и точка">
                         <h4>Вкусно и точка</h4>
                     </div>
                 </a>
                 <a href="{{route('restaurant2-page')}}">
                     <div class="card-item">
-                        <img src="/images/shoko.png" alt="Шоколадница">
+                        <img src="{{ asset('/assets/front/images/shoko.png') }}" alt="Шоколадница">
                         <h4>Шоколадница</h4>
                     </div>
                 </a>
                 <a href="{{route('restaurant3-page')}}">
                     <div class="card-item">
-                        <img src="/images/fars.png" alt="Farш">
+                        <img src="{{ asset('/assets/front/images/fars.png') }}" alt="Farш">
                         <h4>FARШ</h4>
                     </div>
                 </a>

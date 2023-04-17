@@ -33,29 +33,42 @@
                     </div>
                     <div class="col-md-7 col-lg-8">
                         <h4 class="mb-3">Адрес для выставления счета</h4>
-                        <form class="needs-validation" novalidate="">
+                        <form action="{{ route('order-store') }}" method="POST">
+                            @csrf
+
+                            <x-forms.validation_error/>
                             <div class="row g-3">
                                 <div class="col-sm-6">
+                                    <input type="hidden" name="total_price" value="{{ $total }}">
+
                                     <x-forms.input type="text"
-                                                   error="first_name"
+                                                   error="name"
                                                    name="Имя"
-                                                   property="first_name">
+                                                   property="name">
                                     </x-forms.input>
                                 </div>
 
                                 <div class="col-sm-6">
                                     <x-forms.input type="text"
-                                                   error="last_name"
+                                                   error="surname"
                                                    name="Фамилия"
-                                                   property="last_name">
+                                                   property="surname">
                                     </x-forms.input>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-6">
                                     <x-forms.input type="email"
                                                    error="email"
                                                    name="Электронная почта"
                                                    property="email">
+                                    </x-forms.input>
+                                </div>
+
+                                <div class="col-6">
+                                    <x-forms.input type="phone"
+                                                   error="phone"
+                                                   name="Номер телефона"
+                                                   property="phone">
                                     </x-forms.input>
                                 </div>
 
@@ -98,37 +111,45 @@
 
                             <div class="my-3">
                                 <div class="form-check">
-                                    <input id="credit" name="paymentMethod" type="radio" class="form-check-input"
-                                           checked="" required="">
+                                    <input id="credit" name="status" type="radio" class="form-check-input"
+                                           value="0" required>
                                     <label class="form-check-label" for="credit">Наличными курьеру</label>
                                 </div>
                                 <div class="form-check">
-                                    <input id="debit" name="paymentMethod" type="radio" class="form-check-input"
-                                           required="">
+                                    <input id="debit" name="status" type="radio" class="form-check-input"
+                                           value="1" required>
                                     <label class="form-check-label" for="debit">По карте курьеру</label>
                                 </div>
                                 <div class="form-check">
-                                    <input id="paypal" name="paymentMethod" type="radio" class="form-check-input"
-                                           required="">
+                                    <input id="paypal" name="status" type="radio" class="form-check-input"
+                                           value="2" required>
                                     <label class="form-check-label" for="paypal">По карте online</label>
                                 </div>
                             </div>
 
                             <div class="row gy-3">
                                 <div class="col-12">
-                                    <label for="cc-name" class="form-label">Номер карты</label>
-                                    <input type="text" class="form-control" id="cc-name" placeholder="" required="">
+                                    <x-forms.input type="number"
+                                                   error="cart_number"
+                                                   name="Номер карты"
+                                                   property="cart_number">
+                                    </x-forms.input>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="cc-expiration" class="form-label">MM/ГГ</label>
-                                    <input type="text" class="form-control" id="cc-expiration" placeholder=""
-                                           required="">
+                                    <x-forms.input type="text"
+                                                   error="cart_deadline"
+                                                   name="MM/ГГ"
+                                                   property="cart_deadline">
+                                    </x-forms.input>
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label for="cc-cvv" class="form-label">CVV/CVC</label>
-                                    <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
+                                    <x-forms.input type="number"
+                                                   error="cvc_code"
+                                                   name="CVV/CVC"
+                                                   property="cvc_code">
+                                    </x-forms.input>
                                 </div>
                             </div>
 

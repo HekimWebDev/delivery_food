@@ -15,9 +15,15 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('surname');
-            $table->integer('phone');
+            $table->string('email');
+            $table->string('phone');
             $table->string('address');
             $table->tinyInteger('status')->default(0);
+            $table->decimal('total_price');
+
+            $table->unsignedInteger('cart_number')->nullable();
+            $table->string('cart_deadline')->nullable();
+            $table->unsignedTinyInteger('cvc_code')->nullable();
             $table->timestamps();
         });
     }

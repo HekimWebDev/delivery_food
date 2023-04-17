@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PageController;
-use App\Http\Controllers\PayController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,7 +55,12 @@ Route::group([
     Route::delete('/remove-from-cart', 'remove')->name('remove.from.cart');
 });
 Route::get('/cart', [CartController::class, 'index'])->name('cart-page');
-Route::get('/pay', [PayController::class, 'index'])->name('pay-page');
+Route::get('/order-create', [OrderController::class, 'index'])->name('order-create');
+Route::post('/order-store', [OrderController::class, 'store'])->name('order-store');
+
+
+
+
 
 
 Route::get('/login', [PageController::class, 'login'])->name('login-page');
