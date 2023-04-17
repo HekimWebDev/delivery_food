@@ -2,6 +2,10 @@
 
 @section('title', 'Оплата заказа')
 
+@push('styles')
+    <script defer src="{{ asset('assets/lib/alpine_js/alpine.js') }}"></script>
+@endpush
+
 @section('page-content')
     <section>
         <div class="container">
@@ -109,49 +113,52 @@
 
                             <h4 class="mb-3">Оплата</h4>
 
-                            <div class="my-3">
-                                <div class="form-check">
-                                    <input id="credit" name="status" type="radio" class="form-check-input"
-                                           value="0" required>
-                                    <label class="form-check-label" for="credit">Наличными курьеру</label>
+                            <div x-data="{ payMethod: 0}">
+                                <div class="my-3">
+                                    <div class="form-check">
+                                        <input x-model="payMethod" id="credit" name="status" type="radio" class="form-check-input"
+                                               checked value="0" required>
+                                        <label class="form-check-label" for="credit">Наличными курьеру</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input x-model="payMethod" id="debit" name="status" type="radio" class="form-check-input"
+                                               value="1" required>
+                                        <label class="form-check-label" for="debit">По карте курьеру</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input x-model="payMethod" id="paypal" name="status" type="radio" class="form-check-input"
+                                               value="2" required>
+                                        <label class="form-check-label" for="paypal">По карте online</label>
+                                    </div>
                                 </div>
-                                <div class="form-check">
-                                    <input id="debit" name="status" type="radio" class="form-check-input"
-                                           value="1" required>
-                                    <label class="form-check-label" for="debit">По карте курьеру</label>
-                                </div>
-                                <div class="form-check">
-                                    <input id="paypal" name="status" type="radio" class="form-check-input"
-                                           value="2" required>
-                                    <label class="form-check-label" for="paypal">По карте online</label>
+
+                                <div x-show="payMethod != 2" x-transition.duration.500ms class="row gy-3">
+                                    <div class="col-12">
+                                        <x-forms.input type="number"
+                                                       error="cart_number"
+                                                       name="Номер карты"
+                                                       property="cart_number">
+                                        </x-forms.input>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <x-forms.input type="text"
+                                                       error="cart_deadline"
+                                                       name="MM/ГГ"
+                                                       property="cart_deadline">
+                                        </x-forms.input>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <x-forms.input type="number"
+                                                       error="cvc_code"
+                                                       name="CVV/CVC"
+                                                       property="cvc_code">
+                                        </x-forms.input>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row gy-3">
-                                <div class="col-12">
-                                    <x-forms.input type="number"
-                                                   error="cart_number"
-                                                   name="Номер карты"
-                                                   property="cart_number">
-                                    </x-forms.input>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <x-forms.input type="text"
-                                                   error="cart_deadline"
-                                                   name="MM/ГГ"
-                                                   property="cart_deadline">
-                                    </x-forms.input>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <x-forms.input type="number"
-                                                   error="cvc_code"
-                                                   name="CVV/CVC"
-                                                   property="cvc_code">
-                                    </x-forms.input>
-                                </div>
-                            </div>
 
                             <hr class="my-4">
 

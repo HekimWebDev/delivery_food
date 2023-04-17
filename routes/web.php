@@ -7,6 +7,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\CartManage;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,18 +50,18 @@ Route::group([
     'prefix' => 'product',
     'controller' => ProductsController::class
 ], function () {
-    Route::get('/{id}', 'detail')->name('detail');
+    Route::get('/{id}/detail', 'detail')->name('detail');
     Route::get('/add-to-cart/{id}', 'addToCart')->name('add.to.cart');
-    Route::put('/update-cart', 'update')->name('update.cart');
-    Route::delete('/remove-from-cart', 'remove')->name('remove.from.cart');
+
+//    Route::get('/cart', 'cart')->name('cart-page');
+    Route::get('/cart', CartManage::class)->name('cart-page');
+
+//    Route::put('/update-cart', 'update')->name('update.cart');
+//    Route::delete('/remove-from-cart', 'remove')->name('remove.from.cart');
+
 });
-Route::get('/cart', [CartController::class, 'index'])->name('cart-page');
 Route::get('/order-create', [OrderController::class, 'index'])->name('order-create');
 Route::post('/order-store', [OrderController::class, 'store'])->name('order-store');
-
-
-
-
 
 
 Route::get('/login', [PageController::class, 'login'])->name('login-page');

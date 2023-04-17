@@ -41,34 +41,4 @@ class ProductsController extends Controller
 
         return redirect()->back()->with('success', 'Товар успешно добавлен в корзину!');
     }
-
-    /**
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     */
-    public function update(Request $request)
-    {
-        if($request->id && $request->quantity){
-            $cart = session()->get('cart');
-
-            $cart[$request->id]["quantity"] = $request->quantity;
-
-            session()->put('cart', $cart);
-            session()->flash('success', 'Корзина успешно обновлена');
-        }
-    }
-
-    public function remove(Request $request)
-    {
-        if($request->id) {
-            $cart = session()->get('cart');
-
-            if(isset($cart[$request->id])) {
-                unset($cart[$request->id]);
-                session()->put('cart', $cart);
-            }
-
-            session()->flash('success', 'Продукт успешно удален');
-        }
-    }
 }

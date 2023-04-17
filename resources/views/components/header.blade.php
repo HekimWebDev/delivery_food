@@ -23,7 +23,7 @@
             @else
                 <a class="nav-link" href="{{route('login-page')}}">Вход</a>
             @endif
-            <a class="nav-link position-relative" href="{{route('cart-page')}}">
+            <a class="nav-link position-relative" href="{{ route('product.cart-page') }}">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart3"
                      viewBox="0 0 16 16">
                     <path

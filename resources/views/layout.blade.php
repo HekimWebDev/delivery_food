@@ -22,6 +22,8 @@
 
         @stack('styles')
     @show
+
+    @livewireStyles
 </head>
 
 <body>
@@ -47,5 +49,6 @@
 
 @stack('scripts')
 
+@livewireScripts
 </body>
 </html>
