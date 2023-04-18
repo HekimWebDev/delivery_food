@@ -22,7 +22,7 @@ class StoreOrderRequest extends FormRequest
             'status' => ['required', 'integer'],
 
             'cart_number' => ['required_if:status,==,2'],
-            'cart_deadline' => ['required_if:status,==,2', 'date_format:dd/yy'],
+            'cart_deadline' => ['required_if:status,==,2'],
             'cvc_code' => ['required_if:status,==,2'],
         ];
     }
