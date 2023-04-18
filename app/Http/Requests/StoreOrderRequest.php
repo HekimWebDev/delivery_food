@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Validator;
 
 class StoreOrderRequest extends FormRequest
 {
@@ -27,22 +26,49 @@ class StoreOrderRequest extends FormRequest
         ];
     }
 
-    public function withValidator($validator) {
+    public function attributes(): array
+    {
+        return [
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'phone' => 'Номер телефона',
+            'email' => 'Электронная почта',
+            'address' => 'Адрес',
+            'label' => 'Кв/Офис',
+            'entrance' => 'Подъезд',
+            'floor' => 'Этаж',
+            'status' => 'Оплата',
+            'cart_number' => 'Номер карты',
+            'cart_deadline' => 'MM/ГГ',
+            'cvc_code' => 'CVV/CVC',
+        ];
+    }
+
+    public function withValidator($validator)
+    {
         $cartNumber = str_replace(['-', '_'], '', $this->cart_number);
         $cvcCode = str_replace('_', '', $this->cvc_code);
 
-        if ($this->status == 2){
+        if ($this->status == 2) {
             $validator->after(function ($validator) use ($cartNumber, $cvcCode) {
                 if (strlen($cartNumber) != 16) {
                     $validator->errors()->add('cart_number', 'Номер карты не может быть меньше 16 цифр');
                 }
 
                 if (strlen($cvcCode) != 3) {
-                    $validator->errors()->add('cart_number', 'CVC номер карты не может быть меньше 16 цифр');
+                    $validator->errors()->add('cvc_code', 'CVC номер карты не может быть меньше 16 цифр');
                 }
             });
         }
 
         return $validator;
+    }
+
+    public function messages(): array
+    {
+        return [
+            'cart_number.required_if' => 'Поле :attribute обязательно для заполнения, когда оплата "По карте online"',
+            'cvc_code.required_if' => 'Поле :attribute обязательно для заполнения, когда оплата "По карте online"',
+        ];
     }
 }
