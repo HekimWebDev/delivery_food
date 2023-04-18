@@ -9,7 +9,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        if (empty(session('cart'))){
+        if (empty(session('cart'))) {
             return redirect()->back();
         }
 
@@ -18,12 +18,10 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        $products_id = array_keys(session('cart'));
-
-//        dd($request->all());
+        dd($request->validated());
         $data = $request->validated();
 
-        \DB::transaction(function () use ($data, $products_id) {
+        \DB::transaction(function () use ($data) {
             $order = Order::create([
                 'name' => $data['name'],
                 'surname' => $data['surname'],

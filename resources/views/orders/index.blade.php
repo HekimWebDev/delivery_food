@@ -116,17 +116,20 @@
                             <div x-data="{ payMethod: 0}">
                                 <div class="my-3">
                                     <div class="form-check">
-                                        <input x-model="payMethod" id="credit" name="status" type="radio" class="form-check-input"
+                                        <input x-model="payMethod" id="credit" name="status" type="radio"
+                                               class="form-check-input"
                                                checked value="0" required>
                                         <label class="form-check-label" for="credit">Наличными курьеру</label>
                                     </div>
                                     <div class="form-check">
-                                        <input x-model="payMethod" id="debit" name="status" type="radio" class="form-check-input"
+                                        <input x-model="payMethod" id="debit" name="status" type="radio"
+                                               class="form-check-input"
                                                value="1" required>
                                         <label class="form-check-label" for="debit">По карте курьеру</label>
                                     </div>
                                     <div class="form-check">
-                                        <input x-model="payMethod" id="paypal" name="status" type="radio" class="form-check-input"
+                                        <input x-model="payMethod" id="paypal" name="status" type="radio"
+                                               class="form-check-input"
                                                value="2" required>
                                         <label class="form-check-label" for="paypal">По карте online</label>
                                     </div>
@@ -134,31 +137,56 @@
 
                                 <div x-show="payMethod == 2" x-transition.duration.500ms class="row gy-3">
                                     <div class="col-12">
-                                        <x-forms.input type="number"
-                                                       error="cart_number"
-                                                       name="Номер карты"
-                                                       property="cart_number">
-                                        </x-forms.input>
+                                        <label for="cart_number" class="form-label">Номер карты</label>
+
+                                        <input class="form-control" id="cart_number" name="cart_number"
+                                               value="{{ old('cart_number') }}" inputmode="text"
+                                               data-inputmask-alias="9999-9999-9999-9999">
+
+                                        @error("cart_number")
+                                        <label id="cart_number"
+                                               class="error invalid-feedback"
+                                               for="cart_number">
+                                            {{ $message }}
+                                        </label>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
-                                        <x-forms.input type="text"
-                                                       error="cart_deadline"
-                                                       name="MM/ГГ"
-                                                       property="cart_deadline">
-                                        </x-forms.input>
+                                        <label for="cart_deadline" class="form-label">MM/ГГ</label>
+
+                                        <input class="form-control mb-4 mb-md-0" data-inputmask="'alias': 'datetime'"
+                                               id="cart_deadline" name="cart_deadline"
+                                               data-inputmask-inputformat="mm/yy" inputmode="numeric"
+                                               value="{{ old('cart_deadline') }}">
+
+                                        @error("cart_deadline")
+                                        <label id="cart_deadline"
+                                               class="error invalid-feedback"
+                                               for="cart_deadline">
+                                            {{ $message }}
+                                        </label>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
-                                        <x-forms.input type="number"
-                                                       error="cvc_code"
-                                                       name="CVV/CVC"
-                                                       property="cvc_code">
-                                        </x-forms.input>
+                                        <label for="cvc_code" class="form-label">CVV/CVC</label>
+
+                                        <input class="form-control" id="cvc_code" name="cvc_code"
+                                               type="password" data-inputmask-alias="999" inputmode="text"
+                                               value="{{ old('cvc_code') }}">
+
+                                        @error("cvc_code")
+                                        <label id="cvc_code"
+                                               class="error invalid-feedback"
+                                               for="cvc_code">
+                                            {{ $message }}
+                                        </label>
+                                        @enderror
+
                                     </div>
                                 </div>
                             </div>
-
 
                             <hr class="my-4">
 
@@ -169,4 +197,17 @@
             </section>
         </div>
     </section>
+
+    @push('scripts')
+        <script src="{{ asset('assets/lib/inputmask/jquery.inputmask.min.js') }}"></script>
+
+        <script>
+            (function ($) {
+                'use strict';
+
+                $(":input").inputmask();
+
+            })(jQuery);
+        </script>
+    @endpush
 @endsection

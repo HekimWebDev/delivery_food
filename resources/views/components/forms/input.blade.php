@@ -6,11 +6,11 @@
            id="{{ $property }}"
            value="{{ old($error ?? $property, $value ?? '') }}">
 
-    @error("$property")
-    <label id="{{ $property }}"
-           class="error invalid-feedback"
-           for="{{ $property }}">
-        {{ $message }}
-    </label>
-    @enderror
+{{--    @error("$property")--}}
+{{--    <label id="{{ $property }}"--}}
+{{--           class="error invalid-feedback"--}}
+{{--           for="{{ $property }}">--}}
+{{--        {{ $message }}--}}
+{{--    </label>--}}
+{{--    @enderror--}}
 </div>
