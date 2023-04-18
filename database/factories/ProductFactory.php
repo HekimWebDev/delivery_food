@@ -16,7 +16,7 @@ class ProductFactory extends Factory
         return [
             'name' => $this->faker->word(),
             'price' => $this->faker->numberBetween(1, 10000),
-            'amount' => rand(0, 10),
+            'amount' => rand(1, 10),
             'description' => $this->faker->text(),
             'image' => \Storage::files('images')[rand(0, 5)],
             'created_at' => Carbon::now(),

@@ -132,7 +132,7 @@
                                     </div>
                                 </div>
 
-                                <div x-show="payMethod != 2" x-transition.duration.500ms class="row gy-3">
+                                <div x-show="payMethod == 2" x-transition.duration.500ms class="row gy-3">
                                     <div class="col-12">
                                         <x-forms.input type="number"
                                                        error="cart_number"

@@ -20,7 +20,7 @@ class StoreOrderRequest extends FormRequest
             'total_price' => ['required'],
             'status' => ['required', 'integer'],
 
-            'cart_number' => ['nullable', 'numeric'],
+            'cart_number' => ['nullable'],
             'cart_deadline' => ['nullable'],
             'cvc_code' => ['nullable', 'digits:3'],
         ];

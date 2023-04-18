@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
 
@@ -33,11 +32,14 @@ class ProductsController extends Controller
                 "name" => $product->name,
                 "quantity" => 1,
                 "price" => $product->price,
+                'stock' => $product->amount,
                 "image" => $product->image
             ];
         }
 
         session()->put('cart', $cart);
+
+        $product->update(['amount' => --$product->amount]);
 
         return redirect()->back()->with('success', 'Товар успешно добавлен в корзину!');
     }

@@ -15,7 +15,7 @@
                     </thead>
                     <tbody>
 
-                    @if(count($cart))
+                    @if(count($this->cart ?? []))
                         @foreach($cart as $id => $details)
                             {{--                            @php $total += $details['price'] * $details['quantity'] @endphp--}}
                             <tr data-id="{{ $id }}">
@@ -34,13 +34,15 @@
                                 <td>{{ $details['price'] }} ₽</td>
                                 <td>
                                     <div class="d-flex justify-content-around">
-                                        <a wire:click="decrement({{ $id }})"
-                                           class="btn btn-sm btn-outline-danger rounded-5">-</a>
+                                        <button wire:click="decrement({{ $id }})"
+                                           @disabled( $details['quantity'] == 0 )
+                                           class="btn btn-sm btn-outline-danger rounded-5">-</button>
 
                                         <span>{{ $details['quantity'] }}</span>
 
-                                        <a wire:click="increment({{ $id }})"
-                                           class="btn btn-sm btn-outline-primary rounded-5">+</a>
+                                        <button wire:click="increment({{ $id }})"
+                                           @disabled( ($details['stock'] - $details['quantity']) == 0 )
+                                           class="btn btn-sm btn-outline-primary rounded-5">+</button>
                                     </div>
                                 </td>
                                 <td data-th="Subtotal"
@@ -62,6 +64,10 @@
                                 </td>
                             </tr>
                         @endforeach
+                    @else
+                        <div class="alert alert-warning">
+                            <h2>У вас нет товаров</h2>
+                        </div>
                     @endif
                     </tbody>
 

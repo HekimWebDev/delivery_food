@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Product;
 use Livewire\Component;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
@@ -30,6 +31,11 @@ class CartManage extends Component
 
         ++$cart[$id]["quantity"];
 
+        $product = Product::findOrFail($id);
+
+        $product->update(['amount' => --$product->amount]);
+
+
         session()->put('cart', $cart);
         session()->flash('success', 'Корзина успешно обновлена');
 
@@ -48,21 +54,14 @@ class CartManage extends Component
 
         --$cart[$id]["quantity"];
 
+        $product = Product::findOrFail($id);
+
+        $product->update(['amount' => ++$product->amount]);
+
         session()->put('cart', $cart);
         session()->flash('success', 'Корзина успешно обновлена');
 
         $this->mount();
-    }
-
-    public function freshTotal(): void
-    {
-        $total = 0;
-
-        $res = array_map(function ($details) use ($total) {
-            return $total += $details['price'] * $details['quantity'];
-        }, $this->cart);
-
-        $this->totalAllProduct = array_sum($res);
     }
 
     /**
@@ -73,6 +72,10 @@ class CartManage extends Component
     {
         $cart = session()->get('cart');
 
+        $product = Product::findOrFail($id);
+
+        $product->update(['amount' => $product->amount + $cart[$id]['quantity']]);
+
         if (isset($cart[$id])) {
             unset($cart[$id]);
 
@@ -81,6 +84,8 @@ class CartManage extends Component
             session()->put('cart', $cart);
         }
         session()->flash('success', 'Продукт успешно удален');
+
+
 
         $this->mount();
     }
@@ -91,4 +96,18 @@ class CartManage extends Component
             ->extends('layout')
             ->section('page-content');
     }
+
+    public function freshTotal(): void
+    {
+        $total = 0;
+
+        if (!empty($this->cart)){
+            $res = array_map(function ($details) use ($total) {
+                return $total += $details['price'] * $details['quantity'];
+            }, $this->cart);
+
+            $this->totalAllProduct = array_sum($res);
+        }
+    }
+
 }
