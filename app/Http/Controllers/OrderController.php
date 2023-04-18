@@ -9,6 +9,10 @@ class OrderController extends Controller
 {
     public function index()
     {
+        if (empty(session('cart'))){
+            return redirect()->back();
+        }
+
         return view('orders.index');
     }
 

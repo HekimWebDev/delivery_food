@@ -85,7 +85,9 @@
                                 <i class="fa fa-angle-left"></i>
                                 Продолжить покупки
                             </a>
-                            <a href="{{ route('order-create') }}" class="btn btn-success">Оплачивать</a>
+                            <a href="{{ route('order-create') }}" class="btn btn-success {{ empty($cart) ? 'disabled' : '' }}">
+                                Оплачивать
+                            </a>
                         </td>
                     </tr>
                     </tfoot>
