@@ -18,7 +18,6 @@ class OrderController extends Controller
 
     public function store(StoreOrderRequest $request)
     {
-        dd($request->validated());
         $data = $request->validated();
 
         \DB::transaction(function () use ($data) {
