@@ -83,11 +83,9 @@ class CartManage extends Component
 
             session()->put('cart', $cart);
         }
+        $this->freshTotal();
+
         session()->flash('success', 'Продукт успешно удален');
-
-
-
-        $this->mount();
     }
 
     public function render()
@@ -107,6 +105,12 @@ class CartManage extends Component
             }, $this->cart);
 
             $this->totalAllProduct = array_sum($res);
+
+            $this->emit('freshCountProduct');
+        }else{
+            $this->totalAllProduct = 0;
+
+            $this->emit('freshCountProduct');
         }
     }
 

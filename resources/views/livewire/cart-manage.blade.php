@@ -35,7 +35,7 @@
                                 <td>
                                     <div class="d-flex justify-content-around">
                                         <button wire:click="decrement({{ $id }})"
-                                           @disabled( $details['quantity'] == 0 )
+                                           @disabled( $details['quantity'] == 1 )
                                            class="btn btn-sm btn-outline-danger rounded-5">-</button>
 
                                         <span>{{ $details['quantity'] }}</span>

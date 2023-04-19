@@ -31,11 +31,7 @@
                 </svg>
 
                 Корзина
-                <span class="position-absolute top-0 start-1 end-100 translate-middle badge rounded-pill bg-danger">
-                    {{ count( session('cart') ?? [] ) }}
-
-                    <span class="visually-hidden">unread messages</span>
-                </span>
+                <livewire:count-product-basket/>
             </a>
         </div>
     </div>
